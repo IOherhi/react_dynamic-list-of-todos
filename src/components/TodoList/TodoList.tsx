@@ -3,7 +3,7 @@ import { Todo } from '../../types/Todo';
 
 type Props = {
   todosArray: Todo[];
-  selectById: () => void;
+  selectById: (param: number) => void;
 };
 
 export const TodoList: React.FC<Props> = ({ todosArray, selectById }) => (
