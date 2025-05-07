@@ -1,12 +1,17 @@
 import React from 'react';
 import { Loader } from '../Loader';
 
-export const TodoModal: React.FC = () => {
+type Props = {
+  loader: boolean;
+  setModalClose: (pr: boolean) => void;
+};
+
+export const TodoModal: React.FC<Props> = ({ loader, setModalClose }) => {
   return (
     <div className="modal is-active" data-cy="modal">
       <div className="modal-background" />
 
-      {true ? (
+      {loader ? (
         <Loader />
       ) : (
         <div className="modal-card">
@@ -19,7 +24,12 @@ export const TodoModal: React.FC = () => {
             </div>
 
             {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
-            <button type="button" className="delete" data-cy="modal-close" />
+            <button
+              type="button"
+              className="delete"
+              data-cy="modal-close"
+              onClick={() => setModalClose(false)}
+            />
           </header>
 
           <div className="modal-card-body">
