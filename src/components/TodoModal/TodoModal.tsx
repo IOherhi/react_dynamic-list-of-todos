@@ -1,12 +1,18 @@
 import React from 'react';
 import { Loader } from '../Loader';
+import { Todo } from '../../types/Todo';
 
 type Props = {
   loader: boolean;
+  actualUser: Todo;
   setModalClose: (pr: boolean) => void;
 };
 
-export const TodoModal: React.FC<Props> = ({ loader, setModalClose }) => {
+export const TodoModal: React.FC<Props> = ({
+  loader,
+  setModalClose,
+  actualUser,
+}) => {
   return (
     <div className="modal is-active" data-cy="modal">
       <div className="modal-background" />
@@ -20,7 +26,7 @@ export const TodoModal: React.FC<Props> = ({ loader, setModalClose }) => {
               className="modal-card-title has-text-weight-medium"
               data-cy="modal-header"
             >
-              Todo #2
+              {`Todo #${actualUser.id}`}
             </div>
 
             {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
@@ -34,7 +40,7 @@ export const TodoModal: React.FC<Props> = ({ loader, setModalClose }) => {
 
           <div className="modal-card-body">
             <p className="block" data-cy="modal-title">
-              quis ut nam facilis et officia qui
+              {actualUser.title}
             </p>
 
             <p className="block" data-cy="modal-user">

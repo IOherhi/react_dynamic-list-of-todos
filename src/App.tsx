@@ -18,7 +18,6 @@ export const App: React.FC = () => {
   const [active, setActive] = useState('all');
   const [searchSelect, setSearchSelect] = useState<Todo[]>([]);
   const [loader, setLoader] = useState(false);
-  const [modalClose, setModalClose] = useState(false);
 
   const doSearch = (content: string) => {
     if (active === 'all') {
@@ -62,6 +61,20 @@ export const App: React.FC = () => {
     }
   };
 
+  const [actualUser, setActualUser] = useState<Todo | null>(null);
+  const [modalClose, setModalClose] = useState(false);
+
+  const selectById = (selectId: number) => {
+    const result = todos.find(item => item.id === selectId);
+
+    if (result) {
+      setActualUser(result);
+      setModalClose(true);
+    } else {
+      setModalClose(false);
+    }
+  };
+
   useEffect(() => {
     setLoader(true);
 
@@ -88,15 +101,19 @@ export const App: React.FC = () => {
               {loader ? (
                 <Loader />
               ) : (
-                <TodoList todosArray={todos} setModalClose={setModalClose} />
+                <TodoList todosArray={todos} selectById={selectById} />
               )}
             </div>
           </div>
         </div>
       </div>
 
-      {modalClose && (
-        <TodoModal loader={loader} setModalClose={setModalClose} />
+      {modalClose && actualUser && (
+        <TodoModal
+          loader={loader}
+          setModalClose={setModalClose}
+          actualUser={actualUser}
+        />
       )}
     </>
   );
